@@ -1,10 +1,10 @@
 import React from "react";
-
+import List from "./Component/List";
 import "./App.css"
 function App() {
   return (
     <div className="App">
-        <h1>Hello</h1>
+      <List/>
     </div>
   );
 }
