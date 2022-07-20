@@ -3,7 +3,6 @@ import List from "./Component/List";
 
 import "./App.css"
 function App() {
-
   return (
     <Fragment>
       <List/>

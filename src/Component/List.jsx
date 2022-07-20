@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import axios from "axios";
 import Loader from "./Loader";
+import ReactPaginate from "react-paginate";
+import "./PaginateStyle.css";
+
 function List() {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([data.slice(0, 50)]);
     const [loader, setLoader] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(5);
+    const [pageNumber, setPageNumber] = useState(0);
+    const perPage = 5;
+    const pageShow = pageNumber * perPage;
 
     useEffect(() => {
         axios.get("https://jsonplaceholder.typicode.com/todos/")
@@ -15,7 +19,13 @@ function List() {
                 setData(data);
                 setLoader(false);
             })
-    })
+    }, []);
+
+    const pageCount = Math.ceil(data.length / perPage);
+    const changePage = ({ selected }) => {
+        setPageNumber(selected);
+    };
+
     return (
         <>
             {loader ? <Loader />
@@ -24,8 +34,8 @@ function List() {
                     <h1 className="text-center">List Is Here</h1>
                     <br />
                     {
-                        data.map(d => (
-                            <div div className="container bg-light rounded-3" >
+                        data.slice(pageShow, pageShow + perPage).map(d => (
+                            <div className="container bg-light rounded-3">
                                 <div className="card border-0 rounded-2">
                                     <div className="card-header border-0">
                                         Id: {d.id}
@@ -45,6 +55,19 @@ function List() {
                         ))
                     }
                     <br />
+                    <div className="container text-center">
+                        <ReactPaginate
+                            previousLabel={"<"}
+                            nextLabel={">"}
+                            pageCount={pageCount}
+                            onPageChange={changePage}
+                            containerClassName={"paginationBttns"}
+                            previousLinkClassName={"previousBttn"}
+                            nextLinkClassName={"nextBttn"}
+                            disabledClassName={"paginationDisabled"}
+                            activeClassName={"paginationActive"}
+                        />
+                    </div>
                 </Fragment>
             }
         </>
