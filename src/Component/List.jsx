@@ -6,7 +6,7 @@ import ReactPaginate from "react-paginate";
 import "./PaginateStyle.css";
 
 function List() {
-    const [data, setData] = useState([data.slice(0, 50)]);
+    const [data, setData] = useState([]);
     const [loader, setLoader] = useState(true);
     const [pageNumber, setPageNumber] = useState(0);
     const perPage = 5;
@@ -37,16 +37,16 @@ function List() {
                         data.slice(pageShow, pageShow + perPage).map(d => (
                             <div className="container bg-light rounded-3">
                                 <div className="card border-0 rounded-2">
-                                    <div className="card-header border-0">
-                                        Id: {d.id}
+                                    <div className="card-header border-0 fw-bold" style={{ color: "#61DAFB" }}>
+                                        ID : {d.id}
                                     </div>
                                     <div className="card-body">
                                         {d.title}
                                         <div className="mt-2">
                                             {d.completed ?
-                                                <span className="badge rounded-pill text-bg-primary">Success</span>
+                                                <span className="badge rounded-pill text-bg-primary fs-6">Success</span>
                                                 :
-                                                <span className="badge rounded-pill text-bg-danger">Failure</span>}
+                                                <span className="badge rounded-pill text-bg-danger fs-6">Failure</span>}
                                         </div>
                                     </div>
                                 </div>
