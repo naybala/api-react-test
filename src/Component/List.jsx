@@ -5,21 +5,24 @@ import Loader from "./Loader";
 function List() {
     const [data, setData] = useState([]);
     const [loader, setLoader] = useState(true);
-    useEffect(() => {
-        axios.get("https://jsonplaceholder.typicode.com/todos/").then((res) => {
-            const data = res.data;
-            setData(data);
-            setLoader(false);
-        })
-    })
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(5);
 
+    useEffect(() => {
+        axios.get("https://jsonplaceholder.typicode.com/todos/")
+            .then((res) => {
+                const data = res.data;
+                setData(data);
+                setLoader(false);
+            })
+    })
     return (
         <>
             {loader ? <Loader />
                 :
                 <Fragment>
                     <h1 className="text-center">List Is Here</h1>
-                    <br /><br />
+                    <br />
                     {
                         data.map(d => (
                             <div div className="container bg-light rounded-3" >
